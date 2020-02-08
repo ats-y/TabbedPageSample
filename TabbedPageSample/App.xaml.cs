@@ -34,6 +34,9 @@ namespace TabbedPageSample
 
             // View「MainPage」ViewModels「MainPageViewModel」を登録する。
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<ContentAPage, ContentAPageViewModel>();
+            containerRegistry.RegisterForNavigation<ContentBPage, ContentBPageViewModel>();
         }
     }
 }

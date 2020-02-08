@@ -9,9 +9,9 @@
     Title="TabbedPage Sample">
     <StackLayout>
         <!-- Place new controls here -->
-        <Label
-            Text="Welcome to Xamarin.Forms!"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand" />
+        <Button
+            Text="タブページへ"
+            Command="{Binding ToMyTabbedPageCommand}"
+            VerticalOptions="CenterAndExpand"/>
     </StackLayout>
 </ContentPage>

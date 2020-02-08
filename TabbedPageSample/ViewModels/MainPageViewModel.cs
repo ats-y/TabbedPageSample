@@ -21,7 +21,8 @@ namespace TabbedPageSample.ViewModels
         private void OnMyTabbedPageCommand(object x)
         {
             Debug.WriteLine("OnMyTabbedPageCommand called.");
-            _navigationService.NavigateAsync("MyTabbedPage?selectedTab=ContentBPage");
+            //_navigationService.NavigateAsync("MyTabbedPage?selectedTab=ContentBPage");
+            _navigationService.NavigateAsync("MyTabbedPage");
         }
     }
 }

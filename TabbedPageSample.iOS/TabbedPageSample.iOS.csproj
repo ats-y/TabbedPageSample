@@ -135,4 +135,8 @@
       <Name>TabbedPageSample</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\SettingsIcon-30.png" />
+    <BundleResource Include="Resources\Information-30.png" />
+  </ItemGroup>
 </Project>

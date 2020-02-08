@@ -19,4 +19,11 @@
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Images\settings.png" />
+    <None Remove="Images\settingsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="**/*" />
+  </ItemGroup>
 </Project>

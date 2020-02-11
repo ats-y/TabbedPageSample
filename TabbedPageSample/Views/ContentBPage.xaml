@@ -2,7 +2,8 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:selector="clr-namespace:TabbedPageSample.Selector"
+    xmlns:selectors="clr-namespace:TabbedPageSample.Selector"
+    xmlns:controls="clr-namespace:TabbedPageSample.Controls"
     x:Class="TabbedPageSample.Views.ContentBPage"
     x:Name="ParentPage"
     IconImageSource="Information-30.png">
@@ -10,34 +11,40 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <!--<ControlTemplate
-                x:Key="RowView">
+            <!--
+            ライセンス表示用部品。
+            LicenseViewのデータを表示するControlTemplate。
+            -->
+            <ControlTemplate
+                x:Key="KeyOfRowTemplate">
                 <StackLayout
-                    BackgroundColor="Red">
+                    BackgroundColor="LightBlue">
+                    <!-- ライセンス名 -->
                     <Label
-                        Text="{TemplateBinding Version}" />
+                        Text="{TemplateBinding Name}" />
+                    <!-- バージョン -->
                     <Label
-                        Text="{Binding Version, StringFormat='Version:{0}'}" />
+                        Text="{TemplateBinding Version
+                                , StringFormat='Version:{0}'}" />
                 </StackLayout>
-            </ControlTemplate>-->
+            </ControlTemplate>
 
-            <!-- 削除不可行 -->
+            <!-- 削除不可行DataTemplate -->
             <DataTemplate
                 x:Key="KeyOfUnDeletableRow">
                 <ViewCell>
-
                     <!-- 行のレイアウト -->
                     <StackLayout
                         Padding="10">
-                        <Label
-                            Text="{Binding Name}" />
-                        <Label
-                            Text="{Binding Version, StringFormat='Version:{0}'}" />
+                        <controls:LicenseView
+                            Name="{Binding Name}"
+                            Version="{Binding Version}"
+                            ControlTemplate="{StaticResource KeyOfRowTemplate}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
 
-            <!-- 削除可能行 -->
+            <!-- 削除可能行DataTemplate -->
             <DataTemplate
                 x:Key="KeyOfDeletableRow">
                 <ViewCell>
@@ -65,26 +72,26 @@
                                 <ColumnDefinition
                                     Width="0.2*" />
                             </Grid.ColumnDefinitions>
-                            <StackLayout
-                                Grid.Column="0">
-                                <Label
-                                    Text="{Binding Name}" />
-                                <Label
-                                    Text="{Binding Version, StringFormat='Version:{0}'}" />
-                            </StackLayout>
+
+                            <controls:LicenseView
+                                Grid.Column="0"
+                                Name="{Binding Name}"
+                                Version="{Binding Version}"
+                                ControlTemplate="{StaticResource KeyOfRowTemplate}" />
+
                             <Button
                                 Grid.Column="1"
                                 Text="編集"
                                 Command="{Binding Source={Reference ParentPage}
                                             , Path=BindingContext.RowEditCommand}"
-                                CommandParameter="{Binding .}"/>
+                                CommandParameter="{Binding .}" />
                         </Grid>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
 
             <!-- ライセンス情報表示リスト行のテンプレートセレクタ -->
-            <selector:LicenseRowDataTemplateSelector
+            <selectors:LicenseRowDataTemplateSelector
                 x:Key="KeyOfLicenseRowDataTemplateSelector"
                 DeletableRow="{StaticResource KeyOfDeletableRow}"
                 UnDeletableRow="{StaticResource KeyOfUnDeletableRow}" />
@@ -94,8 +101,6 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label
-                Text="ContentBPage" />
 
             <!-- ライセンス情報表示リスト -->
             <ListView

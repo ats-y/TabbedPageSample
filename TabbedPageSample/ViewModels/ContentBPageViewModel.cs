@@ -105,6 +105,7 @@ namespace TabbedPageSample.ViewModels
             Licenses.Remove(target);
         }
 
+        #region タブ切り替え時処理（IActiveAwareの実装）
         private bool _isActive;
         public bool IsActive
         {
@@ -117,5 +118,6 @@ namespace TabbedPageSample.ViewModels
         }
 
         public event EventHandler IsActiveChanged;
+        #endregion
     }
 }

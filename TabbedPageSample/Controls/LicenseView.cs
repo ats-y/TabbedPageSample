@@ -9,27 +9,27 @@ namespace TabbedPageSample.Controls
     /// </summary>
     public class LicenseView : ContentView
     {
-        public static readonly BindableProperty NameProperty = BindableProperty.Create(
-            nameof(Name), typeof(string), typeof(LicenseView), string.Empty);
-        public static readonly BindableProperty VersionProperty = BindableProperty.Create(
-            nameof(Version), typeof(string), typeof(LicenseView), string.Empty);
+        public static readonly BindableProperty LicenseNameProperty = BindableProperty.Create(
+            nameof(LicenseName), typeof(string), typeof(LicenseView), string.Empty);
+        public static readonly BindableProperty LicenseVersionProperty = BindableProperty.Create(
+            nameof(LicenseVersion), typeof(string), typeof(LicenseView), string.Empty);
 
         /// <summary>
         /// ライセンス名
         /// </summary>
-        public string Name
+        public string LicenseName
         {
-            get => (string)GetValue(NameProperty);
-            set => SetValue(NameProperty, value);
+            get => (string)GetValue(LicenseNameProperty);
+            set => SetValue(LicenseNameProperty, value);
         }
 
         /// <summary>
         /// バージョン
         /// </summary>
-        public string Version
+        public string LicenseVersion
         {
-            get => (string)GetValue(VersionProperty);
-            set => SetValue(VersionProperty, value);
+            get => (string)GetValue(LicenseVersionProperty);
+            set => SetValue(LicenseVersionProperty, value);
         }
 
         public LicenseView()

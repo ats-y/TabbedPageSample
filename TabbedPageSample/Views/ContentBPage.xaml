@@ -13,7 +13,7 @@
 
             <!--
             ライセンス表示用部品。
-            LicenseViewのデータを表示するControlTemplate。
+            LicenseViewのデータを表示するためのControlTemplate。
             -->
             <ControlTemplate
                 x:Key="KeyOfRowTemplate">
@@ -21,10 +21,10 @@
                     BackgroundColor="LightBlue">
                     <!-- ライセンス名 -->
                     <Label
-                        Text="{TemplateBinding Name}" />
+                        Text="{TemplateBinding LicenseName}" />
                     <!-- バージョン -->
                     <Label
-                        Text="{TemplateBinding Version
+                        Text="{TemplateBinding LicenseVersion
                                 , StringFormat='Version:{0}'}" />
                 </StackLayout>
             </ControlTemplate>
@@ -36,9 +36,10 @@
                     <!-- 行のレイアウト -->
                     <StackLayout
                         Padding="10">
+                        <!-- ライセンス表示用部品への参照 -->
                         <controls:LicenseView
-                            Name="{Binding Name}"
-                            Version="{Binding Version}"
+                            LicenseName="{Binding Name}"
+                            LicenseVersion="{Binding Version}"
                             ControlTemplate="{StaticResource KeyOfRowTemplate}" />
                     </StackLayout>
                 </ViewCell>
@@ -73,10 +74,11 @@
                                     Width="0.2*" />
                             </Grid.ColumnDefinitions>
 
+                            <!-- ライセンス表示用部品への参照 -->
                             <controls:LicenseView
                                 Grid.Column="0"
-                                Name="{Binding Name}"
-                                Version="{Binding Version}"
+                                LicenseName="{Binding Name}"
+                                LicenseVersion="{Binding Version}"
                                 ControlTemplate="{StaticResource KeyOfRowTemplate}" />
 
                             <Button
@@ -90,7 +92,9 @@
                 </ViewCell>
             </DataTemplate>
 
-            <!-- ライセンス情報表示リスト行のテンプレートセレクタ -->
+            <!--
+            ライセンス情報表示リスト行のテンプレートセレクタ。
+            削除可能データかどうかで表示するテンプレートを変える -->
             <selectors:LicenseRowDataTemplateSelector
                 x:Key="KeyOfLicenseRowDataTemplateSelector"
                 DeletableRow="{StaticResource KeyOfDeletableRow}"

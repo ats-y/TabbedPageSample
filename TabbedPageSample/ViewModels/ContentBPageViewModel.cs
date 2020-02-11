@@ -20,16 +20,19 @@ namespace TabbedPageSample.ViewModels
                 {
                     Name = "ライブラリ1",
                     Version = "1.0.0.0",
+                    IsDeletable = false,
                 },
                 new License
                 {
                     Name = "ライブラリ2",
                     Version = "1.0.0.1",
+                    IsDeletable = true,
                 },
                 new License
                 {
                     Name = "ライブラリ3",
                     Version = "1.0.0.2",
+                    IsDeletable = false,
                 },
             };
         }

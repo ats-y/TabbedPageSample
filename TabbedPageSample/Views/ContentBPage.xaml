@@ -2,30 +2,88 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:selector="clr-namespace:TabbedPageSample.Selector"
     x:Class="TabbedPageSample.Views.ContentBPage"
     IconImageSource="Information-30.png">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!--<ControlTemplate
+                x:Key="RowView">
+                <StackLayout
+                    BackgroundColor="Red">
+                    <Label
+                        Text="{TemplateBinding Version}" />
+                    <Label
+                        Text="{Binding Version, StringFormat='Version:{0}'}" />
+                </StackLayout>
+            </ControlTemplate>-->
+
+            <!-- 削除不可行 -->
+            <DataTemplate
+                x:Key="KeyOfUnDeletableRow">
+                <ViewCell>
+
+                    <!-- 行のレイアウト -->
+                    <StackLayout
+                        Padding="10">
+                        <Label
+                            Text="{Binding Name}" />
+                        <Label
+                            Text="{Binding Version, StringFormat='Version:{0}'}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <!-- 削除可能行 -->
+            <DataTemplate
+                x:Key="KeyOfDeletableRow">
+                <ViewCell>
+
+                    <!-- 削除コンテキストメニュー -->
+                    <ViewCell.ContextActions>
+                        <MenuItem
+                            Text="削除"
+                            IsDestructive="True" />
+                    </ViewCell.ContextActions>
+
+                    <!-- 行のレイアウト -->
+                    <StackLayout
+                        Padding="10">
+                        <Label
+                            Text="削除可能"
+                            FontSize="Micro"/>
+                        <Label
+                            Text="{Binding Name}" />
+                        <Label
+                            Text="{Binding Version, StringFormat='Version:{0}'}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <!-- ライセンス情報表示リスト行のテンプレートセレクタ -->
+            <selector:LicenseRowDataTemplateSelector
+                x:Key="KeyOfLicenseRowDataTemplateSelector"
+                DeletableRow = "{StaticResource KeyOfDeletableRow}"
+                UnDeletableRow="{StaticResource KeyOfUnDeletableRow}"/>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
             <Label
                 Text="ContentBPage" />
 
+            <!-- ライセンス情報表示リスト -->
             <ListView
+                SelectionMode="None"
                 HasUnevenRows="True"
-                ItemsSource="{Binding Lisences}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label
-                                    Text="{Binding Name}" />
-                                <Label
-                                    Text="{Binding Version, StringFormat='Version:{0}'}"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
+                ItemsSource="{Binding Lisences}"
+                ItemTemplate="{StaticResource KeyOfLicenseRowDataTemplateSelector}">
             </ListView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -37,6 +37,7 @@ namespace TabbedPageSample
             containerRegistry.RegisterForNavigation<MyTabbedPage, MyTabbedPageViewModel>();
             containerRegistry.RegisterForNavigation<ContentAPage, ContentAPageViewModel>();
             containerRegistry.RegisterForNavigation<ContentBPage, ContentBPageViewModel>();
+            containerRegistry.RegisterForNavigation<SubPage, SubPageViewModel>();
         }
     }
 }

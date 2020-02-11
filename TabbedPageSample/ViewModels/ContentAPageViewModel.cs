@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Prism;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -9,10 +10,6 @@ namespace TabbedPageSample.ViewModels
 {
     public class ContentAPageViewModel : BindableBase, IActiveAware
     {
-        public ContentAPageViewModel()
-        {
-        }
-
         private bool _isActive;
         public bool IsActive
         {
@@ -25,5 +22,20 @@ namespace TabbedPageSample.ViewModels
         }
 
         public event EventHandler IsActiveChanged;
+
+        public Command NextPageCommand { get; }
+
+        private INavigationService _navigationService;
+
+        public ContentAPageViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            NextPageCommand = new Command(async () => await OnNextPageCommandAsync());
+        }
+
+        private async Task OnNextPageCommandAsync()
+        {
+            await _navigationService.NavigateAsync("SubPage");
+        }
     }
 }

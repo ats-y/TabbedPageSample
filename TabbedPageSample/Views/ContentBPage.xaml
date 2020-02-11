@@ -6,7 +6,26 @@
     IconImageSource="Information-30.png">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="ContentBPage"/>
+            <Label
+                Text="ContentBPage" />
+
+            <ListView
+                HasUnevenRows="True"
+                ItemsSource="{Binding Lisences}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label
+                                    Text="{Binding Name}" />
+                                <Label
+                                    Text="{Binding Version, StringFormat='Version:{0}'}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

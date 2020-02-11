@@ -5,16 +5,32 @@ using Prism;
 using Prism.Mvvm;
 using Prism.Navigation;
 using TabbedPageSample.Models;
+using Xamarin.Forms;
 
 namespace TabbedPageSample.ViewModels
 {
     public class ContentBPageViewModel : BindableBase, IActiveAware
     {
-        public ObservableCollection<License> Lisences { get; }
+        /// <summary>
+        /// ライセンスリスト。
+        /// </summary>
+        public ObservableCollection<License> Licenses { get; }
 
+        /// <summary>
+        /// ライセンス行削除コマンド
+        /// </summary>
+        public Command RowDeleteCommand { get; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public ContentBPageViewModel()
         {
-            Lisences = new ObservableCollection<License>()
+            // ライセンス行削除コマンドのイベントハンドラを生成。
+            RowDeleteCommand = new Command(x => OnRowDeleteCommand(x));
+
+            // ライセンス一覧を生成。
+            Licenses = new ObservableCollection<License>()
             {
                 new License
                 {
@@ -26,15 +42,38 @@ namespace TabbedPageSample.ViewModels
                 {
                     Name = "ライブラリ2",
                     Version = "1.0.0.1",
-                    IsDeletable = true,
+                    IsDeletable = false,
                 },
                 new License
                 {
                     Name = "ライブラリ3",
                     Version = "1.0.0.2",
-                    IsDeletable = false,
+                    IsDeletable = true,
+                },
+                new License
+                {
+                    Name = "ライブラリ4",
+                    Version = "1.0.0.1",
+                    IsDeletable = true,
+                },
+                new License
+                {
+                    Name = "ライブラリ5",
+                    Version = "1.0.0.1",
+                    IsDeletable = true,
                 },
             };
+        }
+
+        /// <summary>
+        /// ライセンス行を削除する。
+        /// </summary>
+        /// <param name="x"></param>
+        private void OnRowDeleteCommand(object x)
+        {
+            License target = x as License;
+            if (target == null) return;
+            Licenses.Remove(target);
         }
 
         private bool _isActive;

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:selector="clr-namespace:TabbedPageSample.Selector"
     x:Class="TabbedPageSample.Views.ContentBPage"
+    x:Name="ParentPage"
     IconImageSource="Information-30.png">
 
     <ContentPage.Resources>
@@ -45,7 +46,10 @@
                     <ViewCell.ContextActions>
                         <MenuItem
                             Text="削除"
-                            IsDestructive="True" />
+                            IsDestructive="True"
+                            Command="{Binding Source={Reference ParentPage}
+                                        , Path=BindingContext.RowDeleteCommand}"
+                            CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
 
                     <!-- 行のレイアウト -->
@@ -80,7 +84,7 @@
             <ListView
                 SelectionMode="None"
                 HasUnevenRows="True"
-                ItemsSource="{Binding Lisences}"
+                ItemsSource="{Binding Licenses}"
                 ItemTemplate="{StaticResource KeyOfLicenseRowDataTemplateSelector}">
             </ListView>
 

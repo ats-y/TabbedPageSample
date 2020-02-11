@@ -49,7 +49,7 @@
                             IsDestructive="True"
                             Command="{Binding Source={Reference ParentPage}
                                         , Path=BindingContext.RowDeleteCommand}"
-                            CommandParameter="{Binding .}"/>
+                            CommandParameter="{Binding .}" />
                     </ViewCell.ContextActions>
 
                     <!-- 行のレイアウト -->
@@ -57,11 +57,28 @@
                         Padding="10">
                         <Label
                             Text="削除可能"
-                            FontSize="Micro"/>
-                        <Label
-                            Text="{Binding Name}" />
-                        <Label
-                            Text="{Binding Version, StringFormat='Version:{0}'}" />
+                            FontSize="Micro" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="0.8*" />
+                                <ColumnDefinition
+                                    Width="0.2*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0">
+                                <Label
+                                    Text="{Binding Name}" />
+                                <Label
+                                    Text="{Binding Version, StringFormat='Version:{0}'}" />
+                            </StackLayout>
+                            <Button
+                                Grid.Column="1"
+                                Text="編集"
+                                Command="{Binding Source={Reference ParentPage}
+                                            , Path=BindingContext.RowEditCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Grid>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
@@ -69,8 +86,8 @@
             <!-- ライセンス情報表示リスト行のテンプレートセレクタ -->
             <selector:LicenseRowDataTemplateSelector
                 x:Key="KeyOfLicenseRowDataTemplateSelector"
-                DeletableRow = "{StaticResource KeyOfDeletableRow}"
-                UnDeletableRow="{StaticResource KeyOfUnDeletableRow}"/>
+                DeletableRow="{StaticResource KeyOfDeletableRow}"
+                UnDeletableRow="{StaticResource KeyOfUnDeletableRow}" />
 
         </ResourceDictionary>
     </ContentPage.Resources>

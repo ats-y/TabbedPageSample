@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Prism;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
+using Prism.Services.Dialogs;
 using TabbedPageSample.Models;
 using Xamarin.Forms;
 
@@ -17,17 +20,31 @@ namespace TabbedPageSample.ViewModels
         public ObservableCollection<License> Licenses { get; }
 
         /// <summary>
-        /// ライセンス行削除コマンド
+        /// ライセンス行削除コマンド。
         /// </summary>
         public Command RowDeleteCommand { get; }
 
         /// <summary>
-        /// コンストラクタ
+        /// ライセンス行編集コマンド。
         /// </summary>
-        public ContentBPageViewModel()
+        public Command RowEditCommand { get; }
+
+        /// <summary>
+        /// ダイアログサービス。
+        /// </summary>
+        private IPageDialogService _dialogService;
+
+        /// <summary>
+        /// コンストラクタ。
+        /// </summary>
+        public ContentBPageViewModel(IPageDialogService dialog)
         {
-            // ライセンス行削除コマンドのイベントハンドラを生成。
+            // インジェクションオブジェクトを保存。
+            _dialogService = dialog;
+
+            // コマンドのイベントハンドラを生成。
             RowDeleteCommand = new Command(x => OnRowDeleteCommand(x));
+            RowEditCommand = new Command(async x => await OnRowEditCommandAsync(x));
 
             // ライセンス一覧を生成。
             Licenses = new ObservableCollection<License>()
@@ -66,7 +83,19 @@ namespace TabbedPageSample.ViewModels
         }
 
         /// <summary>
-        /// ライセンス行を削除する。
+        /// ライセンスを編集する。
+        /// </summary>
+        /// <param name="x"></param>
+        private async Task OnRowEditCommandAsync(object x)
+        {
+            // 実際はダイアログで対象ライセンス名を表示するだけ。
+            License target = x as License;
+            if (target == null) return;
+            await _dialogService.DisplayAlertAsync("編集", target.Name, "OK");
+        }
+
+        /// <summary>
+        /// ライセンスを削除する。
         /// </summary>
         /// <param name="x"></param>
         private void OnRowDeleteCommand(object x)

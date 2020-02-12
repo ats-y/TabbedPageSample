@@ -32,7 +32,8 @@
             <!-- 削除不可行DataTemplate -->
             <DataTemplate
                 x:Key="KeyOfUnDeletableRow">
-                <ViewCell>
+                <controls:CustomViewCell
+                    SelectedBackgroundColor="Green">
                     <!-- 行のレイアウト -->
                     <StackLayout
                         Padding="10">
@@ -42,23 +43,24 @@
                             LicenseVersion="{Binding Version}"
                             ControlTemplate="{StaticResource KeyOfRowTemplate}" />
                     </StackLayout>
-                </ViewCell>
+                </controls:CustomViewCell>
             </DataTemplate>
 
             <!-- 削除可能行DataTemplate -->
             <DataTemplate
                 x:Key="KeyOfDeletableRow">
-                <ViewCell>
+                <controls:CustomViewCell
+                    SelectedBackgroundColor="Red">
 
                     <!-- 削除コンテキストメニュー -->
-                    <ViewCell.ContextActions>
+                    <controls:CustomViewCell.ContextActions>
                         <MenuItem
                             Text="削除"
                             IsDestructive="True"
                             Command="{Binding Source={Reference ParentPage}
                                         , Path=BindingContext.RowDeleteCommand}"
                             CommandParameter="{Binding .}" />
-                    </ViewCell.ContextActions>
+                    </controls:CustomViewCell.ContextActions>
 
                     <!-- 行のレイアウト -->
                     <StackLayout
@@ -89,7 +91,7 @@
                                 CommandParameter="{Binding .}" />
                         </Grid>
                     </StackLayout>
-                </ViewCell>
+                </controls:CustomViewCell>
             </DataTemplate>
 
             <!--
@@ -108,7 +110,7 @@
 
             <!-- ライセンス情報表示リスト -->
             <ListView
-                SelectionMode="None"
+                SelectionMode="Single"
                 HasUnevenRows="True"
                 ItemsSource="{Binding Licenses}"
                 ItemTemplate="{StaticResource KeyOfLicenseRowDataTemplateSelector}">

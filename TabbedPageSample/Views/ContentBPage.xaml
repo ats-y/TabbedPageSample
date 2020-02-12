@@ -49,21 +49,21 @@
             <!-- 削除可能行DataTemplate -->
             <DataTemplate
                 x:Key="KeyOfDeletableRow">
-                <controls:CustomViewCell
-                    SelectedBackgroundColor="Red">
+                <ViewCell>
 
                     <!-- 削除コンテキストメニュー -->
-                    <controls:CustomViewCell.ContextActions>
+                    <ViewCell.ContextActions>
                         <MenuItem
                             Text="削除"
                             IsDestructive="True"
                             Command="{Binding Source={Reference ParentPage}
                                         , Path=BindingContext.RowDeleteCommand}"
                             CommandParameter="{Binding .}" />
-                    </controls:CustomViewCell.ContextActions>
+                    </ViewCell.ContextActions>
 
                     <!-- 行のレイアウト -->
                     <StackLayout
+                        BackgroundColor="White"
                         Padding="10">
                         <Label
                             Text="削除可能"
@@ -91,7 +91,7 @@
                                 CommandParameter="{Binding .}" />
                         </Grid>
                     </StackLayout>
-                </controls:CustomViewCell>
+                </ViewCell>
             </DataTemplate>
 
             <!--
@@ -110,7 +110,7 @@
 
             <!-- ライセンス情報表示リスト -->
             <ListView
-                SelectionMode="Single"
+                SelectionMode="None"
                 HasUnevenRows="True"
                 ItemsSource="{Binding Licenses}"
                 ItemTemplate="{StaticResource KeyOfLicenseRowDataTemplateSelector}">
